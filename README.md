@@ -38,6 +38,9 @@ Go to each language specific folder to see the code.
 
 The runtimes for each specific languages are as follows: 
 
+### SAS: 
+Average runtime (system): (1.74 + 2.4 + 2.8 + 2.85 + 2.93 + 2.84)/6 = 2.59 s. 
+
 ### Python :  
 Average Runtime (System): (0.063 + 0.074 + 0.042)/3 = 0.059 s.
 
@@ -51,10 +54,12 @@ Average Runtime: (0.0218 + 0.0225 + 0.0220)/3 = 0.0221 s.
 Average Runtime (excluding installing packages for the first time and printing the result):
 (2.73 + 2.71 + 2.78)/3 = 2.74 s.
 
-Note: Julia seems to be pretty bad in reading input from file because even just such a small file takes me around 2 sec to load as a dataframe in the script, which pushes the runtime of the code to 2.8 s.
+Note: Julia seems to be pretty bad in reading input from file because even just such a small file takes around 2 sec to load as a dataframe in the script, which pushes the runtime of the code to 2.8 s.
 
 ### C: 
 The work hasn't been completed yet. This is taking longer than expected time to debug. Work still in progress. Will update this after we are done. 
 
 ### C++: 
 The work hasn't been completed yet. This is taking longer than expected time to debug. Work still in progress. Will update this after we are done. 
+
+As we can see, these codes (except Julia for some reason) runs way faster than SAS. 
