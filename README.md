@@ -60,6 +60,6 @@ Note: Julia seems to be pretty bad in reading input from file because even just 
 The work hasn't been completed yet. This is taking longer than expected time to debug. Work still in progress. Will update this after we are done. 
 
 ### C++: 
-The work hasn't been completed yet. This is taking longer than expected time to debug. Work still in progress. Will update this after we are done. 
+Average runtime (system): (0.001 + 0.0009 + 0.001)/3 = 0.00096666666 s. 
 
 As we can see, these codes (except Julia for some reason) runs way faster than SAS. 
