@@ -135,7 +135,7 @@ unsigned long crc32(const unsigned char *s, unsigned int len)
 {
   unsigned int i;
   unsigned long crc32val;
-  
+
   crc32val = 0;
   for (i = 0;  i < len;  i ++)
     {
@@ -229,7 +229,7 @@ int hashmap_rehash(map_t in){
 
         if (curr[i].in_use == 0)
             continue;
-            
+
 		status = hashmap_put(m, curr[i].key, curr[i].data);
 		if (status != MAP_OK)
 			return status;
@@ -258,7 +258,7 @@ int hashmap_put(map_t in, char* key, any_t value){
 			return MAP_OMEM;
 		}
 		index = hashmap_hash(in, key);
-		
+
 
 
 
@@ -270,11 +270,11 @@ int hashmap_put(map_t in, char* key, any_t value){
 
 
 	m->data[index].key = key;
-	
+
 
 
 	m->data[index].in_use = 1;
-	m->size++; 
+	m->size++;
 
 	return MAP_OK;
 }
@@ -290,21 +290,27 @@ int hashmap_get(map_t in, char* key, any_t *arg){
 	/* Cast the hashmap */
 	m = (hashmap_map *) in;
 
+
+
 	/* Find data location */
 	curr = hashmap_hash_int(m, key);
+
 
 	/* Linear probing, if necessary */
 	for(i = 0; i<MAX_CHAIN_LENGTH; i++){
 
         int in_use = m->data[curr].in_use;
         if (in_use == 1){
+
             if (strcmp(m->data[curr].key,key)==0){
+
                 *arg = (m->data[curr].data);
                 return MAP_OK;
             }
 		}
 
 		curr = (curr + 1) % m->table_size;
+
 	}
 
 	*arg = NULL;
@@ -312,6 +318,9 @@ int hashmap_get(map_t in, char* key, any_t *arg){
 	/* Not found */
 	return MAP_MISSING;
 }
+
+
+
 
 /*
  * Iterate the function parameter over each element in the hashmap.  The
@@ -323,24 +332,148 @@ int hashmap_iterate(map_t in, PFany f, any_t item) {
 
 	/* Cast the hashmap */
 	hashmap_map* m = (hashmap_map*) in;
-	
+
 
 	/* On empty hashmap, return immediately */
 	if (hashmap_length(m) <= 0)
-		return MAP_MISSING;	
+		return MAP_MISSING;
 
 	/* Linear probing */
 	for(i = 0; i< m->table_size; i++)
 		if(m->data[i].in_use != 0) {
+			any_t val = (any_t) (m->data[i].data);
+			char * combination;
+			combination = (char*)m->data[i].key;
+			//printf("%s----\n", combination);
 
-			hashmap_element a = m->data[i];
+	static const char filename[] = "data.txt";
 
-			printf("%s\n",a.key);
+   FILE *file = fopen ( filename, "r" );
 
+   if ( file != NULL )
+   {
+      char line [ 128 ]; /* or other suitable maximum line size */
+      char *p = NULL;
+      while ( fgets ( line, sizeof line, file ) != NULL ) /* read a line */
+      {
+        //fputs ( line, stdout ); /* write the line */
+        p = strtok(line," ");
+        // from each line now we read word by word
+
+        char to_add[5];
+		int uo = 0;
+		p = strtok(NULL," ");
+        while(p != NULL)
+        {
+          		char g = *p;
+
+            	to_add[uo] = g;
+            	uo++;
+          p = strtok(NULL," ");
+
+        }
+      to_add[uo] = '\0';
+      char * final;
+      final = malloc ( 5 * sizeof (char));
+
+      for (int j = 0; combination[j] != '\0'; j++){
+      	char g = combination[j];
+		int value_to_use = atoi(&g);
+		final[j] = to_add[value_to_use-1];
+      }
+
+      //printf("%s\n", final);
+      int * g;
+      g = malloc(sizeof(int));
+      *g = 1;
+     int* y;
+     y = malloc(sizeof(int));
+
+      int st2 = hashmap_get( m->data[i].data,final, (any_t)y);
+
+      if(st2 == MAP_MISSING){
+      	int st = hashmap_put( m->data[i].data,final, (any_t)g);
+      }
+      else if(st2 == MAP_OK){
+      	*g = 100;
+      	int st = hashmap_put( m->data[i].data,final, (any_t)g);
+      }
+      else{
+      	int st = hashmap_put( m->data[i].data,final, (any_t)g);
+      }
+
+  }
+
+      fclose ( file );
+   }
+   else
+   {
+      perror ( filename ); /* why didn't the file open? */
+   }
+			int status = f(item, val);
+			if (status != MAP_OK) {
+				return status;
+			}
+		}
+    return MAP_OK;
+}
+
+
+int g(item, val){
+    return MAP_OK;
+   }
+
+int hashmap_iterate_print(map_t in, PFany f, any_t item) {
+	int i;
+
+	PFany foo = &g;
+	/* Cast the hashmap */
+	hashmap_map* m = (hashmap_map*) in;
+
+	/* On empty hashmap, return immediately */
+	if (hashmap_length(m) <= 0)
+		return MAP_MISSING;
+
+	/* Linear probing */
+	for(i = 0; i< m->table_size; i++)
+		if(m->data[i].in_use != 0) {
 			any_t data = (any_t) (m->data[i].data);
-	
 
-			// printf("%p\n", data);
+			printf("%s-----\n",(char *)m->data[i].key);
+			any_t extra;
+			hashmap_iterate_print_helper(data, foo,extra);
+
+			int status = f(item, data);
+			if (status != MAP_OK) {
+				return status;
+			}
+		}
+
+    return MAP_OK;
+}
+
+int hashmap_iterate_print_helper(map_t in, PFany f, any_t item) {
+	int i;
+
+	/* Cast the hashmap */
+	hashmap_map* m = (hashmap_map*) in;
+
+	/* On empty hashmap, return immediately */
+	if (hashmap_length(m) <= 0)
+		return MAP_MISSING;
+
+	/* Linear probing */
+	for(i = 0; i< m->table_size; i++)
+		if(m->data[i].in_use != 0) {
+			int * data = (int *) (m->data[i].data);
+
+			if (*data == 1){
+				printf("%s\n",(char *)m->data[i].key);
+
+			}
+
+
+
 
 			int status = f(item, data);
 			if (status != MAP_OK) {
@@ -401,4 +534,3 @@ int hashmap_length(map_t in){
 	if(m != NULL) return m->size;
 	else return 0;
 }
-

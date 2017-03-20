@@ -35,9 +35,6 @@ typedef struct _hashmap_map{
 	hashmap_element *data;
 } hashmap_map;
 
-
-
-
 /*
  * PFany is a pointer to a function that can take two any_t arguments
  * and return an integer. Returns status code..
@@ -64,6 +61,8 @@ extern map_t hashmap_new();
  * not reenter any hashmap functions, or deadlock may arise.
  */
 extern int hashmap_iterate(map_t in, PFany f, any_t item);
+extern int hashmap_iterate_print(map_t in, PFany f, any_t item);
+extern int hashmap_iterate_print_helper(map_t in, PFany f, any_t item);
 
 /*
  * Add an element to the hashmap. Return MAP_OK or MAP_OMEM.
@@ -97,4 +96,3 @@ extern void hashmap_free(map_t in);
 extern int hashmap_length(map_t in);
 
 #endif
-
