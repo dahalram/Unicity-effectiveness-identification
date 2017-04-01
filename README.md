@@ -11,32 +11,44 @@ No data yet!
 
 ### Python :  
 Average Runtime (System):
-For dataset 1:
+
+For dataset 1: (0.036 + 0.027 + 0.026 + 0.028 + 0.026)/5 =
+
 For dataset 2:
 
 ### R:
 Average Runtime (system):
+
 For dataset 1: (0.080 + 0.084 + 0.066 + 0.076 + 0.080)/5 = 0.078 s.
+
 For dataset 2: (0.10 + 0.12 + 0.10 + 0.11 + 0.11)/5 = 0.11 s.
 
 ### Matlab:
 Average Runtime:
+
 For dataset 1:
+
 For dataset 2:
 
 ### Julia:
 Average Runtime (excluding installing packages for the first time and printing the result):
-For dataset 1: (2.669322515 + 2.587425153 + 2.587662671)/3 = 2.6148
+
+For dataset 1: (2.669322515 + 2.587425153 + 2.587662671 + 2.714858562 + 2.725893324)/5 = 2.657032445
+
 For dataset 2: (2.805421131 + 2.762209794 + 2.721966287 + 2.808386271 + 2.840796785)/5 = 2.7877560536
 
 ### C:
 Average runtime (system):
+
 For dataset 1: (0.015 + 0.011 + 0.013 + 0.017 + 0.017) = 0.015s
+
 For dataset 2:
 
 ### C++:
 Average runtime (system):
+
 For dataset 1: (0.035 + 0.033 + 0.033 + 0.036 + 0.035) = 0.035s
+
 For dataset 2: (0.072 + 0.070 + 0.076 + 0.072 + 0.076) = 0.073s
 
 -----
