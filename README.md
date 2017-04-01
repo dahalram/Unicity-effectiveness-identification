@@ -26,9 +26,9 @@ For dataset 2: (0.10 + 0.12 + 0.10 + 0.11 + 0.11)/5 = 0.11 s.
 ### Matlab:
 Average Runtime:
 
-For dataset 1:
+For dataset 1: (0.0228 + 0.0226 + 0.0230 + 0.0228 + 0.0232)/5 = 0.0229s
 
-For dataset 2:
+For dataset 2: (0.0782 + 0.082 + 0.082 + 0.080 + 0.0832)/5 = 0.0811s
 
 ### Julia:
 Average Runtime (excluding installing packages for the first time and printing the result):
@@ -40,9 +40,9 @@ For dataset 2: (2.805421131 + 2.762209794 + 2.721966287 + 2.808386271 + 2.840796
 ### C:
 Average runtime (system):
 
-For dataset 1: (0.015 + 0.011 + 0.013 + 0.017 + 0.017) = 0.015s
+For dataset 1: (0.015 + 0.011 + 0.013 + 0.017 + 0.017)/5 = 0.015s
 
-For dataset 2:
+For dataset 2: (0.028 + 0.026 + 0.026 + 0.031 + 0.028)/5 = 0.028s
 
 ### C++:
 Average runtime (system):
@@ -103,7 +103,7 @@ Average Runtime: (0.0218 + 0.0225 + 0.0220)/3 = 0.0221 s.
 Average Runtime (excluding installing packages for the first time and printing the result):
 (2.73 + 2.71 + 2.78)/3 = 2.74 s.
 
-Note: Julia seems to be pretty bad in reading input from file because even just such a small file takes around 2 sec to load as a dataframe in the script, which pushes the runtime of the code to 2.8 s.
+Note: Julia seems to be pretty bad in reading input from file because even just such a small file takes around 2 sec to load as a data frame in the script, which pushes the runtime of the code to 2.8 s.
 
 ### C:
 The work hasn't been completed yet. This is taking longer than expected time to debug. Work still in progress. Will update this after we are done.
