@@ -99,4 +99,3 @@ int main() {
   auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
   cout << elapsed.count() << '\n';
 }
-
