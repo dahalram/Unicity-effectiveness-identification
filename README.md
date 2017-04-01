@@ -12,9 +12,9 @@ No data yet!
 ### Python :  
 Average Runtime (System):
 
-For dataset 1: (0.036 + 0.027 + 0.026 + 0.028 + 0.026)/5 =
+For dataset 1: (0.068 + 0.066 + 0.070 + 0.058 + 0.062)/5 = 0.065s
 
-For dataset 2:
+For dataset 2: (0.072 + 0.070 + 0.078 + 0.080 + 0.078)/5 = 0.076s
 
 ### R:
 Average Runtime (system):
