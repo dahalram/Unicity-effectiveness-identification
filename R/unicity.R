@@ -1,52 +1,88 @@
-# Test
-# install.packages("rvest")
-# install.packages("magrittr")
-# install.packages("dplyr")
-# install.packages("RCurl")
-# install.packages("XML")
-# install.packages("readr")
-
-library(rvest)
-library(magrittr)
-library(dplyr)
-library(RCurl)
-library(XML)
-library(readr)
-
-powerSet <- function() {
-	s <- list(iterable)
-    return chain.from_iterable(combinations(s, r) for r in range(1, len(s)+1))
-
+power_set_calculator <- function(set) { 
+  n <- length(set)
+  size <- 2^(1:n-1)
+  lapply( 1:2^n-1, function(u) set[ bitwAnd(u, size) != 0 ] )
 }
 
-unicityCalculator <- function() {
-	power_set <- list(powerset([1,2,3,4]))
+powerset <- c(power_set_calculator(1:4))
+
+code <- c(1, 2, 3, 4)
+names(code) <- c('a', 'b', 'c', 'd')
+
+ab <- '11111 1 1 1 1
+12222 1 2 2 2 
+13333 2 1 3 3
+14444 2 2 1 4
+15555 3 1 2 1
+16666 3 2 3 2
+17777 1 3 1 3
+18888 2 3 2 4
+19999 3 3 3 1
+20000 1 1 1 2
+21111 2 2 2 3
+22222 3 3 3 4
+22223 4 1 1 1
+22224 4 2 2 2
+22225 4 3 3 3
+22226 4 4 4 4'
+
+ab <- strsplit(ab, '\n')
+vc <- c()
+for (i in 1:16){
+  vc <- c(vc, ab[[1]][i])
+}
+
+a <- c()
+for (dt in vc) {
+  tm <- strsplit(dt, ' ')
+  tp <- c()
+  for (i in 1:5){
+    tp <- c(tp, tm[[1]][i])
+  }
+  print(tp)
+  a <- c(a, tp)
+}
+
+unicity_calculator <- function(a) {
+  result <- c()
+  for (i in powerset) {
+    alphabet <- c()
+    for (j in i) {
+      alphabet <- c(alphabet, j)
+    }
     
-    final_ans <- {}
-    for i in power_set:
-        alphabet <- [code[j] for j in i]
-        freq_tracker <- {}
-        for values in a:
-            key_val <- ''
-            for indexes in i:
-                key_val <- key_val + values[indexes]
-            if key_val not in freq_tracker:
-                freq_tracker[key_val] <- 1
-            else:
-                freq_tracker[key_val] <- freq_tracker[key_val] + 1
-        
-        for k in freq_tracker:
-            if freq_tracker[k] == 1:
-                index_key <- ''.join(alphabet)
-                if index_key not in final_ans:
-                    final_ans[index_key] <- [k]
-                else:
-                    final_ans[index_key].append(k)
-
-    for j in final_ans:
-        print j
-        for val in final_ans[j]:
-            print val
+    freq_tracker <- c()
+    for (values in a) {
+      key_val <- ''
+      for (indexes in i) {
+        key_val <- key_val + values[indexes]
+      }
+      
+      if (key_val %in% names(alphabet)) {
+        freq_tracker[key_val] <- freq_tracker[key_val] + 1
+      } else {
+        c(freq_tracker, key_val=1)
+      }
+    }
+    
+    for (k in freq_tracker) {
+      if (freq_tracker[k] == 1) {
+        index_key <- paste(alphabet, collapse = '')
+        if (index_key %in% result){
+          c(result[index_key], k) 
+        } else {
+          result[index_key] <- k
+        }
+      }
+    }
+  }
+  
+  for (j in result) {
+    print(j)
+    for (val in result[j]){
+      print(val)
+    }
+    print('----------------')
+  }
 }
-
-unicityCalculator(data)
+unicity_calculator(a)
